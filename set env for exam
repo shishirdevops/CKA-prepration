@@ -1,0 +1,9 @@
+source <(kubectl completion bash)
+alias k=kubectl
+complete -F __start_kubectl k
+export do="--dry-run=client -o yaml"
+export fg="--force --grace-period=0"
+export kc="kubectl config set-context $(kubectl config current-context) --namespace"
+vi ~/.vimrc
+set ts=2 sw=2 expandtab ruler
+set backspace=indent,eol,start
