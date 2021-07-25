@@ -7,3 +7,17 @@ export kc="kubectl config set-context $(kubectl config current-context) --namesp
 vi ~/.vimrc
 set ts=2 sw=2 expandtab ruler
 set backspace=indent,eol,start
+
+
+#########################  set number set tabstop=2 set expandtab set shiftwidth=2  ######################
+cat ~/.vimrc
+vi ~/.vimrc
+set nu tabstop=2 shiftwidth=2 expandtab
+
+.bashrc
+source <(kubectl completion bash)
+alias k=kubectl
+complete -F __start_kubectl k
+export do="-o yaml --dry-run=client"
+export gf="–grace-period=0 --force"
+alias kn='kubectl config set-context --current --namespace ’
