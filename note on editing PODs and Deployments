@@ -1,3 +1,6 @@
+kubectl exec -it alpine -n persistence -c container1 sh  to get in to container
+
+
 A quick note on editing PODs and Deployments
 Edit a POD
 Remember, you CANNOT edit specifications of an existing POD other than the below.
