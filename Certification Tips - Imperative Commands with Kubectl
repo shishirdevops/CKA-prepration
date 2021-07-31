@@ -31,6 +31,12 @@ Create a deployment
 
 kubectl create deployment --image=nginx nginx
 
+kubectl exec -it alpine -n persistence -c container1 sh  to get in to container
+
+kubectl run tmp --image=busybox --restart=Never --rm -i -- wget --spider --timeout=1 10.103.110.144:9000 (here IP is cluster IP)
+
+kubectl create service clusterip --namespace networking nginx-service --tcp 9000:8081
+
 
 
 Generate Deployment YAML file (-o yaml). Don't create it(--dry-run)
