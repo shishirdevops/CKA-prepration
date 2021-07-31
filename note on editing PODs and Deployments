@@ -2,6 +2,8 @@ kubectl exec -it alpine -n persistence -c container1 sh  to get in to container
 
 kubectl run tmp --image=busybox --restart=Never --rm -i -- wget --spider --timeout=1 10.103.110.144:9000 (here IP is cluster IP)
 
+kubectl create service clusterip --namespace networking nginx-service --tcp 9000:8081
+
 A quick note on editing PODs and Deployments
 Edit a POD
 Remember, you CANNOT edit specifications of an existing POD other than the below.
