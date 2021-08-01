@@ -1,3 +1,11 @@
+The container runs a command that writes a new file every 30 seconds in an infinite loop in the directory /var/app/data.
+command: ['sh', '-c', 'counter=1; while true; do touch "/var/app/data/$counter-data.txt"; counter=$((counter+1)); sleep 30; done']
+
+
+The sidecar container uses the image busybox and runs a command that counts the number of files produced by the main-app container every 60 seconds in an infinite loop.
+command: ['sh', '-c', 'while true; do ls -dq /var/app/data/*-data.txt | wc -l; sleep 30; done']
+
+
 Certification Tips - Imperative Commands with Kubectl
 While you would be working mostly the declarative way - using definition files, imperative commands can help in getting one time tasks done quickly, as well as generate a definition template easily. This would help save a considerable amount of time during your exams.
 
