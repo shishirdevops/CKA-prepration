@@ -1,4 +1,4 @@
-###Assign systemaccount while pod creation:
+###Assign serviceaccount while pod creation:
 kubectl create serviceaccount monitoring -n api-access
 kubectl run nginx --image=nginx --restart=Never --serviceaccount=monitoring -n api-access
 
