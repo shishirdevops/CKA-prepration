@@ -1,15 +1,18 @@
-Verify that the environment variables have been created correctly by printing them:
+###Assign systemaccount while pod creation:
+kubectl create serviceaccount monitoring -n api-access
+kubectl run nginx --image=nginx --restart=Never --serviceaccount=monitoring -n api-access
+
+###Verify that the environment variables have been created correctly by printing them:
 $ kubectl exec podname -n nextapp -- env
 
-secret with type flag:
+###secret with type flag:
 kubectl -n ns create secret generic heketi-secret --type="kubernetes.io/glusterfs" --from-file=key=file
 
-
-The container runs a command that writes a new file every 30 seconds in an infinite loop in the directory /var/app/data.
+###The container runs a command that writes a new file every 30 seconds in an infinite loop in the directory /var/app/data.
 command: ['sh', '-c', 'counter=1; while true; do touch "/var/app/data/$counter-data.txt"; counter=$((counter+1)); sleep 30; done']
 
 
-The sidecar container uses the image busybox and runs a command that counts the number of files produced by the main-app container every 60 seconds in an infinite loop.
+###The sidecar container uses the image busybox and runs a command that counts the number of files produced by the main-app container every 60 seconds in an infinite loop.
 command: ['sh', '-c', 'while true; do ls -dq /var/app/data/*-data.txt | wc -l; sleep 30; done']
 
 
