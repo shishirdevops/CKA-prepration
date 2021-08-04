@@ -1,3 +1,7 @@
+###For each iteration of the loop, a variable named counter is incremented.
+counter=0; while [ $counter -lt 3 ]; do counter=$((counter+1)); echo "$counter"; sleep 3; done;
+
+
 ###Assign serviceaccount while pod creation:
 kubectl create serviceaccount monitoring -n api-access
 kubectl run nginx --image=nginx --restart=Never --serviceaccount=monitoring -n api-access
