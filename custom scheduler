@@ -1,0 +1,9 @@
+root@controlplane:/etc/kubernetes/manifests# cp kube-scheduler.yaml kube-scheduler-custom.yaml
+
+and then update kube-scheduler-custom.yaml with below options:
+
+- --leader-elect=false
+- --port=10282 #(some random port not in use)
+- --scheduler-name=my-scheduler
+- --secure-port=0
+
