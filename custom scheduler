@@ -7,3 +7,15 @@ and then update kube-scheduler-custom.yaml with below options:
 - --scheduler-name=my-scheduler
 - --secure-port=0
 
+To use this new scheduler :
+
+root@controlplane:~# cat /root/nginx-pod.yaml
+apiVersion: v1 
+kind: Pod 
+metadata:
+  name: nginx 
+spec:
+  schedulerName: my-scheduler ##add this line in pod def file.
+  containers:
+  - image: nginx
+    name: nginx
