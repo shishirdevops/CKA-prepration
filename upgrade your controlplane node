@@ -1,0 +1,20 @@
+
+On the controlplane node, run the command run the following commands:
+
+kubeadm upgrade plan || to see latest available stable version.
+
+kubectl drain controlplane  --ignore-daemonsets || it will also cordon the node too.
+
+apt update
+This will update the package lists from the software repository.
+
+apt install kubeadm=1.20.0-00
+This will install the kubeadm version 1.20
+
+kubeadm upgrade apply v1.20.0
+This will upgrade kubernetes controlplane. Note that this can take a few minutes.
+
+apt install kubelet=1.20.0-00 This will update the kubelet with the version 1.20.
+
+You may need to restart kubelet after it has been upgraded.
+Run: systemctl restart kubelet
