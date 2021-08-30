@@ -1,0 +1,14 @@
+see osimage
+kubectl get nodes -o jsonpath='{.items[*].status.nodeInfo.osImage}'
+
+see nodenames
+kubectl get no -o jsonpath='{.items[*].metadata.name}'
+
+sort pv on basis of capacity:
+kubectl get pv --sort-by=.spec.capacity.storage
+
+only two column from get pv:
+kubectl get pv --sort-by=.spec.capacity.storage -o=custom-columns=NAME:.metadata.name,CAPACITY:.spec.capacity.storage
+
+context configured for the aws-user in the my-kube-config:
+kubectl config view --kubeconfig=my-kube-config -o jsonpath="{.contexts[?(@.context.user=='aws-user')].name}" 
