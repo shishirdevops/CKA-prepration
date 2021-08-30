@@ -19,3 +19,8 @@ DEPLOYMENT CONTAINER_IMAGE READY_REPLICAS NAMESPACE
 . The data should be sorted by the increasing order of the deployment
 
 #kubectl -n admin2406 get deployment -o custom-columns=DEPLOYMENT:.metadata.name,CONTAINER_IMAGE:.spec.template.spec.containers[].image,READY_REPLICAS:.status.readyReplicas,NAMESPACE:.metadata.namespace --sort-by=.metadata.name > /opt/admin2406_data
+
+
+#https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands?source=post_page---------------------------
+List resource information in custom columns:
+kubectl get pod test-pod -o custom-columns=CONTAINER:.spec.containers[0].name,IMAGE:.spec.containers[0].image
