@@ -30,3 +30,6 @@ kubectl get pod test-pod -o custom-columns=CONTAINER:.spec.containers[0].name,IM
 The osImages are under the nodeInfo section under status of each node.
 
 Run the command: kubectl get nodes -o jsonpath='{.items[*].status.nodeInfo.osImage}' 
+
+##List the InternalIP of all nodes of the cluster. Save the result to a file /root/CKA/node_ips.
+kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="InternalIP")].address}'
