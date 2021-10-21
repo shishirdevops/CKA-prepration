@@ -1,0 +1,55 @@
+#Backup the etcd
+basenode$:
+
+ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
+  --cert=/root/etcd/server.crt \
+  --key=/root/etcd/server.key \
+  --cacert=/root/etcd/ca.crt \
+  snapshot save /opt/etcd-backup.db
+
+#Check the status:
+basenode$:
+
+ETCDCTL_API=3 etcdctl --write-out=table --endpoints=https://127.0.0.1:2379 \
+  --cert=/root/etcd/server.crt \
+  --key=/root/etcd/server.key \
+  --cacert=/root/etcd/ca.crt \
+  snapshot status /opt/etcd-backup.db
+
+
+#Restore the etcd
+basenode$:
+
+ETCDCTL_API=3 etcdctl --data-dir=/root/etcd-from-backup --endpoints=https://127.0.0.1:2379 \
+  --cert=/root/kubernetes/pki/etcd/server.crt \
+  --key=/root/kubernetes/pki/etcd/server.key \
+  --cacert=/root/kubernetes/pki/etcd/ca.crt \
+  snapshot restore /opt/etcd-backup.db
+
+
+#Copy the backup (new --data-dir) to the master node:
+basenode$:
+
+scp -r /root/etcd-from-backup root@master:/root
+
+
+#login to Master node
+master$:
+
+mv -v etcd-from-backup/ /var/lib/etcd-from-backup
+
+
+#Update ETCD manifest file with correct hostpath in Master node etcd.yaml volumes
+master$:
+
+vim /etc/kubernetes/manifests/etcd.yaml
+
+volumes:
+  - hostPath:
+      path: /etc/kubernetes/pki/etcd
+      type: DirectoryOrCreate
+    name: etcd-certs
+  - hostPath:
+      path: /var/lib/etcd-from-backup
+      type: DirectoryOrCreate
+    name: etcd-data
